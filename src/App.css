@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*{
+  padding: 0;margin: 0;
+  box-sizing: border-box;
+}
+body{
+  overflow-x: hidden;
+
+}
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background: linear-gradient(45deg, #ff7e5f, #feb47b, #ffcf77, #c3eb78, #8de57b, #53d38b);
+  background-size: 300% 300%;
+  animation: gradient 1.5s infinite;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.animate-enter {
+  opacity: 1;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.animate-exit {
+  animation: fadeOut 0.5s ease forwards;
+}
+
+
+@media (max-width:620px) {
+  html {
+    font-size: 12px;
+  }
+}
+
