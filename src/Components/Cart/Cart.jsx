@@ -74,7 +74,7 @@ const Cart = () => {
             <h3 className="flex justify-between"><span>Delivery Charges</span> <span>200</span></h3>
              <hr />
              <h3 className="flex justify-between"><span>Total amount</span><span>{(totalMrp - 100) + 200}</span></h3>
-             <Link to={'/placeOrder'} className="w-[90%]">
+             <Link to={'/placeOrder'} className="block w-[280px]">
              <button className="bg-green-600 text-white rounded py-[5px]">Place your Order</button>
              </Link>
         </div>
