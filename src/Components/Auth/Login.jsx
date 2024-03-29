@@ -12,6 +12,7 @@ const Login = () => {
         if (email === '' || password === '') return;
        
             signIn(email, password);
+            navigate('/')
         
     };
 
