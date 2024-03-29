@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Loader from '../Loader';
 import { useData } from '../../assets/data';
+import { IoMdStar } from "react-icons/io";
 
 const Products = () => {
   const { products, loading, allProduct } = useData();
@@ -37,7 +38,7 @@ const Products = () => {
 
   return (
     <>
-      <div className="flex justify-start md:justify-center items-center gap-3 pt-3 overflow-auto">
+      <div className="flex justify-start md:justify-center items-center gap-3 pt-3 overflow-auto bg-gray-100">
         {categories.map(cat => (
           <button
             key={cat}
@@ -60,20 +61,22 @@ const Products = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="FContainer flex flex-wrap gap-8 w-full my-4 justify-center">
+        <div className="FContainer flex flex-wrap gap-8 w-full py-4 justify-center bg-gray-100">
           {filteredData.map((item, index) => (
-            <div
-              key={item.id}
-              className={`product w-[200px] h-[200px] relative shadow-md group ${
-                currentCategory === '' ? 'animate-enter' : 'animate-exit'
-              }`}
-              style={{ animationDelay: `${index * 60}ms` }}
-            >
-              <Link to={`${item.id}`}>
-                <img src={item.image} alt={item.title} className="w-full h-3/4 bg-transparent" />
-                <button className="px-10 py-2 absolute bottom-0 bg-orange-400 rounded border-none w-full hidden group-hover:block">Go to Details</button>
-              </Link>
-            </div>
+           <div
+           key={item.id}
+           className={`product w-[300px] h-[400px] relative bg-white p-3 rounded shadow-md group overflow-hidden ${
+             currentCategory === '' ? 'animate-enter' : 'animate-exit'
+           }`}
+           style={{ animationDelay: `${index * 60}ms`}}
+         >
+           <Link to={`${item.id}`}>
+             <img src={item.image} alt={item.title} className="w-full h-3/4 " />
+             <h2 className='truncate font-semibold pl-3'>{item.title}</h2>
+             <h2 className='truncate font-semibold pl-3'>Price : ${item.price}</h2>
+             <h2 className='truncate font-semibold pl-3 flex gap-1 items-center'>rating: {item.rating.rate}<IoMdStar className='text-orange-600' size={25}/></h2>
+           </Link>
+         </div>
           ))}
         </div>
       )}

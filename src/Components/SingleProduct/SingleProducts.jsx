@@ -10,9 +10,9 @@ const SingleProducts = () => {
   let { products, loading } = useData();
   const {cart,setCart} = useCart();
   const [Product, setProduct] = useState([]);
+  let [isAlreadyInCart,setIsAlreadyInCart] = useState();
   function addToCart() {
-    let isAlreadyInCart;
-    if(cart.length > 0) isAlreadyInCart = cart.find(item => item.id === parseInt(id));
+    if(cart.length > 0) setIsAlreadyInCart(cart.find(item => item.id === parseInt(id)));
     if (isAlreadyInCart) {
       setCart(prevCart => prevCart.map(item =>
         item.id === parseInt(id) ? { ...item, amount: item.amount + 1 } : item
@@ -59,7 +59,8 @@ const SingleProducts = () => {
               <div className="ml-2 text-sm text-gray-600">Rating: {Product[0]?.rating.rate} ({Product[0]?.rating.count} reviews)</div>
             </div>
             <button onClick={addToCart}
-            className='bg-orange-500 font-bold text-white px-2 py-1 rounded-xl w-40 hover:bg-black hover:text-orange-600 transition'>Add to Cart</button>
+            className='bg-orange-500 font-bold text-white px-2 py-1 rounded-xl w-40 
+            hover:bg-black hover:text-orange-600 transition'>{isAlreadyInCart ? 'InCart' : 'add To Cart'}</button>
           </div>
         </div>
       )}

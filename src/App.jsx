@@ -13,6 +13,7 @@ import Cart from './Components/Cart/Cart.jsx'
 import AuthProvider from './assets/authContext.jsx'
 import Login from './Components/Auth/Login.jsx'
 import SignUp from './Components/Auth/SignUp.jsx'
+import PlaceOrder from './Components/PlaceOrder.jsx'
 function App() {
   
   return (
@@ -27,13 +28,13 @@ function App() {
         <Route path='products/:id' element={<SingleProducts/>}/>
         <Route path='about' element={<About />}></Route>
         <Route path='contact' element={<Contact />}></Route>
-        <Route path='cart' element={<Cart />}></Route>
+        <Route path='cart' element={<Cart />}/>
+        <Route path='placeOrder' element={<PlaceOrder/>}/>
         <Route path='login' element={<Login/>} />
         <Route path='SignUp' element={<SignUp/>}/>
        </Route>
       </Routes>
       </BrowserRouter>
-
         </CartProvider>
       </DataProvider>
       </AuthProvider>

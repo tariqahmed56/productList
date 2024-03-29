@@ -7,7 +7,7 @@ import { authContext } from '../../assets/authContext';
 
 const Navbar = () => {
   const { cart } = useCart();
-  const {signOut,user} = useContext(authContext);
+  const {signOut,user,isLoggedIn} = useContext(authContext);
   const [count, setCount] = useState(cart.length);
   console.log(count)
   useEffect(() => {
@@ -87,11 +87,12 @@ const Navbar = () => {
       {/* Buttons */}
       <div className="buttons hidden xl:flex items-center">
        {
-       !user ? <Link to={'login'}>
-        <button className="w-25 border-none px-3 rounded-lg py-1 ml-2 hover:bg-orange-500 text-xl font-mono font-bold">
-          login
+       isLoggedIn ? 
+        <button onClick={()=>signOut()}
+        className="w-25 border-none px-3 rounded-lg py-1 ml-2 hover:bg-orange-500 text-xl font-mono font-bold">
+          SignOut
         </button>
-        </Link> : <button onClick={signOut}>LogOut</button>
+       : <Link to={'login'}><button>Sign In</button></Link>
         }
          <Link to={'SignUp'}>
         <button className="w-25 border-none px-3 rounded-lg py-1 ml-2 hover:bg-orange-500 text-xl font-mono font-bold">

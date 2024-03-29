@@ -1,58 +1,61 @@
 import React, { useState, useEffect } from "react";
 import { createContext } from "react";
-import { app } from "./firebase-config";
-import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut as signOutFirebase,
-    onAuthStateChanged,
-} from 'firebase/auth';
-
+import { useNavigate } from "react-router-dom";
 export const authContext = createContext();
 
 export default function AuthContextProvider({ children }) {
-    const [user, setUser] = useState(null);
+    const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const auth = getAuth(app);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            setUser(user);
-            setIsLoggedIn(!!user); 
-        });
-
-        return () => unsubscribe(); 
-    }, [auth]);
+        const storedUsers = JSON.parse(localStorage.getItem("users"));
+        if (storedUsers) {
+            setUsers(storedUsers);
+        }
+        setError('')
+    }, []);
 
     const signUp = (email, password) => {
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(userCredential => {
-                const user = userCredential.user;
-                setUser(user);
-                setIsLoggedIn(true);
-            })
-            .catch(err => setError(err));
+        // Check if email already exists
+        const existingUser = users.find(user => user.email === email);
+        if (existingUser) {
+            setError("Email already exists. If it's your account, please sign in.");
+        } else {
+            // Register new user
+            const newUser = { email, password };
+            const updatedUsers = [...users, newUser];
+            localStorage.setItem("users", JSON.stringify(updatedUsers));
+            setUsers(updatedUsers);
+            setIsLoggedIn(true);
+        }
     }
 
     const signIn = (email, password) => {
-        signInWithEmailAndPassword(auth, email, password)
-            .then(userCredential => {
-                const user = userCredential.user;
-                setUser(user);
+        // Find user by email
+        const user = users.find(user => user.email === email);
+        if (user) {
+            // Check password
+            if (user.password === password) {
                 setIsLoggedIn(true);
-            })
-            .catch(err => setError(err));
+                setError('sucessfully logged in ');
+
+            } else {
+                setError("Invalid email or password");
+                console.log(error)
+            }
+        } else {
+            setError("User not found. Please sign up first.");
+        }
     }
 
     const signOut = () => {
-        signOutFirebase(auth);
-        setUser(null);
+        setIsLoggedIn(false);
     }
+  
 
     return (
-        <authContext.Provider value={{ signUp, signIn, signOut, user, setUser, auth, isLoggedIn, setIsLoggedIn, error }}>
+        <authContext.Provider value={{ signUp, signIn, signOut, users, isLoggedIn, error }}>
             {children}
         </authContext.Provider>
     );
