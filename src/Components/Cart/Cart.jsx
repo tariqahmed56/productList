@@ -11,7 +11,7 @@ const Cart = () => {
       cart.reduce((accumulator, currentValue) => (currentValue.price * currentValue.amount) + accumulator, 0) : 0;
 
     return (
-        <div className="flex flex-wrap gap-5 pt-6">
+        <div className="flex flex-wrap gap-5 pt-6  justify-center">
         <div className="md:w-[70%]  p-6 min-h-[90dvh] shadow-md ">
             {cart.length > 0 ? (
                 <div>
