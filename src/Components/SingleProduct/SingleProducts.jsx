@@ -10,9 +10,10 @@ const SingleProducts = () => {
   let { products, loading } = useData();
   const {cart,setCart} = useCart();
   const [Product, setProduct] = useState([]);
-  let [isAlreadyInCart,setIsAlreadyInCart] = useState();
   function addToCart() {
-    if(cart.length > 0) setIsAlreadyInCart(cart.find(item => item.id === parseInt(id)));
+    let isAlreadyInCart;
+    if(cart) isAlreadyInCart = cart.find(item => item.id === parseInt(id));
+    console.log(isAlreadyInCart)
     if (isAlreadyInCart) {
       setCart(prevCart => prevCart.map(item =>
         item.id === parseInt(id) ? { ...item, amount: item.amount + 1 } : item
@@ -60,7 +61,7 @@ const SingleProducts = () => {
             </div>
             <button onClick={addToCart}
             className='bg-orange-500 font-bold text-white px-2 py-1 rounded-xl w-40 
-            hover:bg-black hover:text-orange-600 transition'>{isAlreadyInCart ? 'InCart' : 'add To Cart'}</button>
+            hover:bg-black hover:text-orange-600 transition'>{ 'add To Cart'}</button>
           </div>
         </div>
       )}
