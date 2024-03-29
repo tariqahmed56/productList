@@ -6,14 +6,14 @@ export const authContext = createContext();
 export default function AuthContextProvider({ children }) {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState('false');
     const [currentUser,setcurrentUser] = useState(null);
 
     useEffect(() => {
         const storedUsers = JSON.parse(localStorage.getItem("users"));
         if (storedUsers) {
             setUsers(storedUsers);
-          
+        //  setIsLoggedIn(localStorage.getItem('isLogin'))
         }
         setError('')
     }, []);

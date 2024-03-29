@@ -13,7 +13,7 @@ const Navbar = () => {
   useEffect(() => {
     setCount(cart.length);
   }, [cart]);
-  
+  let Auth =  localStorage.getItem('isLogin') || 'false';
   const [toggle, setToggle] = useState(false);
 
   return (
@@ -87,7 +87,7 @@ const Navbar = () => {
       {/* Buttons */}
       <div className="buttons hidden xl:flex items-center">
        {
-       localStorage.getItem('isLogin') !== 'false' ? 
+      Auth !== 'false'  ? 
         <button onClick={()=>{
           navigate('profile')
          }}

@@ -4,7 +4,6 @@ import {useNavigate} from 'react-router-dom'
 
 const Login = () => {
     const { signUp, signIn, signOut, users, isLoggedIn, error } = useContext(authContext);
-    console.log(users)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
      const navigate = useNavigate();
@@ -13,7 +12,6 @@ const Login = () => {
         if (email === '' || password === '') return;
        
             signIn(email, password);
-            navigate('/')
         
     };
 
