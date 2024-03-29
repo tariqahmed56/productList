@@ -7,27 +7,32 @@ export default function AuthContextProvider({ children }) {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [currentUser,setcurrentUser] = useState(null);
 
     useEffect(() => {
         const storedUsers = JSON.parse(localStorage.getItem("users"));
         if (storedUsers) {
             setUsers(storedUsers);
+          
         }
         setError('')
     }, []);
 
     const signUp = (email, password) => {
-        // Check if email already exists
+        // Check if email already in 
         const existingUser = users.find(user => user.email === email);
         if (existingUser) {
             setError("Email already exists. If it's your account, please sign in.");
         } else {
-            // Register new user
+            // new user
             const newUser = { email, password };
             const updatedUsers = [...users, newUser];
             localStorage.setItem("users", JSON.stringify(updatedUsers));
             setUsers(updatedUsers);
+            localStorage.setItem('isLogin' , true);
             setIsLoggedIn(true);
+            localStorage.setItem('currentUser', JSON.stringify(email));
+                setcurrentUser(JSON.parse(localStorage.getItem('currentUser')));
         }
     }
 
@@ -37,8 +42,12 @@ export default function AuthContextProvider({ children }) {
         if (user) {
             // Check password
             if (user.password === password) {
-                setIsLoggedIn(true);
-                setError('sucessfully logged in ');
+                localStorage.setItem('isLogin',true);
+                setIsLoggedIn(localStorage.getItem('isLogin'))
+                setError('sucessfully logged in');
+                alert('sucessfully logged in'); 
+                localStorage.setItem('currentUser', JSON.stringify(email));
+                setcurrentUser(JSON.parse(localStorage.getItem('currentUser')));
 
             } else {
                 setError("Invalid email or password");
@@ -51,11 +60,13 @@ export default function AuthContextProvider({ children }) {
 
     const signOut = () => {
         setIsLoggedIn(false);
+        localStorage.setItem('isLogin',false);
+        setcurrentUser(null)
     }
   
 
     return (
-        <authContext.Provider value={{ signUp, signIn, signOut, users, isLoggedIn, error }}>
+        <authContext.Provider value={{ signUp, signIn, signOut, users, isLoggedIn, error ,currentUser}}>
             {children}
         </authContext.Provider>
     );

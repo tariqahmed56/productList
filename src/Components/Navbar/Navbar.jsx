@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { FaAlignRight, FaCartPlus } from 'react-icons/fa';
 import { useCart } from '../../assets/CartContext';
 import { useContext } from 'react';
 import { authContext } from '../../assets/authContext';
-
+import { MdAccountBox } from "react-icons/md";
 const Navbar = () => {
   const { cart } = useCart();
+  let navigate = useNavigate();
   const {signOut,user,isLoggedIn} = useContext(authContext);
   const [count, setCount] = useState(cart.length);
-  console.log(count)
   useEffect(() => {
     setCount(cart.length);
   }, [cart]);
@@ -87,10 +87,12 @@ const Navbar = () => {
       {/* Buttons */}
       <div className="buttons hidden xl:flex items-center">
        {
-       isLoggedIn ? 
-        <button onClick={()=>signOut()}
+       localStorage.getItem('isLogin') !== 'false' ? 
+        <button onClick={()=>{
+          navigate('profile')
+         }}
         className="w-25 border-none px-3 rounded-lg py-1 ml-2 hover:bg-orange-500 text-xl font-mono font-bold">
-          SignOut
+          <MdAccountBox size={25}/>
         </button>
        : <Link to={'login'}><button>Sign In</button></Link>
         }

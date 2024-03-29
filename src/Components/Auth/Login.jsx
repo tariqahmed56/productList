@@ -11,14 +11,9 @@ const Login = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (email === '' || password === '') return;
-        if (isLoggedIn) {
-            signOut();
-            navigate('/')
-        } else {
+       
             signIn(email, password);
-           
-        }
-        
+            navigate('/')
         
     };
 

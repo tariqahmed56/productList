@@ -80,7 +80,6 @@ const Products = () => {
           ))}
         </div>
       )}
-
       <div className="my-4 w-full bg-slate-500">
         <img
           src="https://img.pikbest.com/origin/09/17/13/19wpIkbEsTRmV.jpg!bw700"

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useCart } from "../assets/CartContext";
 
 const PlaceOrder = () => {
+  let {setCart} = useCart()
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,9 +21,7 @@ const PlaceOrder = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your logic here to handle form submission
     console.log(formData);
-    // Reset form fields after submission
     setFormData({
       name: "",
       email: "",
@@ -29,10 +29,13 @@ const PlaceOrder = () => {
       phone: "",
     });
     alert("Order sucessFully placed");
+   localStorage.setItem('cart', JSON.stringify([]));
+   setCart('')
   };
 
   return (
-    <div className="max-w-md mx-auto mt-5 p-6 bg-white rounded-md shadow-md">
+  <div className=" h-[100dvh] flex justify-center items-center">
+    <div className="max-w-md mx-auto  mt-5 p-6 bg-white rounded-md shadow-md]">
       <h2 className="text-2xl font-semibold mb-4">Enter Your Details</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -114,6 +117,8 @@ const PlaceOrder = () => {
         </button>
       </form>
     </div>
+  
+  </div>
   );
 };
 

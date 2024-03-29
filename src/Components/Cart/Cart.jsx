@@ -11,7 +11,7 @@ const Cart = () => {
       cart.reduce((accumulator, currentValue) => (currentValue.price * currentValue.amount) + accumulator, 0) : 0;
 
     return (
-        <div className="flex flex-wrap gap-5 pt-6">
+        <div className="flex flex-wrap gap-5 pt-6 justify-center">
         <div className="md:w-[70%]  p-6 min-h-[90dvh] shadow-md ">
             {cart.length > 0 ? (
                 <div>
@@ -74,8 +74,8 @@ const Cart = () => {
             <h3 className="flex justify-between"><span>Delivery Charges</span> <span>200</span></h3>
              <hr />
              <h3 className="flex justify-between"><span>Total amount</span><span>{(totalMrp - 100) + 200}</span></h3>
-             <Link to={'/placeOrder'} className="w-[90%]">
-             <button className="bg-green-600 text-white rounded py-[5px]">Place your Order</button>
+             <Link to={'/placeOrder'} className="">
+             <button className="bg-green-600 text-white rounded py-[5px] block w-[275px]" >Place your Order</button>
              </Link>
         </div>
         </div>
